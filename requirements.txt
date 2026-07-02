@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+rank-bm25
+rapidfuzz
+pydantic
+python-dotenv

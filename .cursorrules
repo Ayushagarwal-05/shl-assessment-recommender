@@ -1,0 +1,13 @@
+You are helping build an SHL Assessment Recommendation Agent.
+
+Follow these rules:
+
+- Never hallucinate SHL assessments.
+- Only recommend assessments present in catalog.json.
+- Preserve the required API schema exactly.
+- Prefer readable code over clever code.
+- Use type hints.
+- Keep functions short.
+- Do not hardcode recommendations.
+- Always retrieve from catalog before reasoning.
+- Do not modify FastAPI response models.
