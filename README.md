@@ -2,45 +2,78 @@
 
 > Conversational recommendation system built for the SHL AI Intern Take-Home Assignment.
 
-An intelligent conversational recommendation agent that helps users discover the most relevant SHL assessments based on hiring requirements, job roles, skills, seniority, and business context.
+A conversational recommendation agent that helps recruiters and hiring teams identify the most relevant SHL assessments based on hiring requirements, job roles, skills, seniority, and business context.
+
+---
 
 ## Live Demo
 
-**API:** https://shl-assessment-recommender-2wy2.onrender.com
-
-**Swagger Docs:** https://shl-assessment-recommender-2wy2.onrender.com/docs
+| Service | URL |
+|----------|-----|
+| API | https://shl-assessment-recommender-2wy2.onrender.com |
+| Swagger UI | https://shl-assessment-recommender-2wy2.onrender.com/docs |
 
 ---
 
-## Features
+# Features
 
-- Conversational recommendation workflow
+- Conversational assessment recommendations
 - Context-aware multi-turn conversations
-- Automatic clarification when information is insufficient
-- SHL assessment retrieval using BM25 + Fuzzy Matching
-- Unsupported skill detection
-- Off-topic query handling
-- Prompt injection resistance
+- Automatic clarification for incomplete hiring requests
+- Hybrid retrieval using BM25 + RapidFuzz
+- Recommendation refinement across conversation turns
 - Assessment comparison support
-- REST API built with FastAPI
+- Unsupported skill detection
+- Off-topic request handling
+- Prompt injection resistance
+- FastAPI REST API
 
 ---
 
-## Tech Stack
+# Architecture
+
+```
+                User Conversation
+                       │
+                       ▼
+                 FastAPI Endpoint
+                       │
+                       ▼
+              Conversation State
+                       │
+                       ▼
+              Intent Extraction
+                       │
+                       ▼
+                 Rule Engine
+                       │
+                       ▼
+       Hybrid Retrieval (BM25 + RapidFuzz)
+                       │
+                       ▼
+          Ranked SHL Recommendations
+                       │
+                       ▼
+               Structured JSON Response
+```
+
+---
+
+# Tech Stack
 
 - Python 3.11
 - FastAPI
-- BM25 (rank-bm25)
-- RapidFuzz
 - Pydantic
+- BM25 (`rank-bm25`)
+- RapidFuzz
 
 ---
 
-## Project Structure
+# Project Structure
 
-```
+```text
 .
-├── app
+├── app/
 │   ├── agent.py
 │   ├── catalog.py
 │   ├── comparison.py
@@ -51,26 +84,24 @@ An intelligent conversational recommendation agent that helps users discover the
 │   ├── rules.py
 │   └── state.py
 │
-├── data
+├── data/
 │   ├── catalog.json
 │   └── conversations/
 │
-├── scripts
-│
-├── tests
-│
+├── scripts/
+├── tests/
 ├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## Installation
+# Installation
 
 Clone the repository
 
 ```bash
-git clone https://github.com/Ayushagarwal-05/shl-assessment-recommender.git
+git clone https://github.com/Ayushagarwal-05/shl-assessment-recommender
 
 cd shl-assessment-recommender
 ```
@@ -81,7 +112,7 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Run the server
+Run the application
 
 ```bash
 uvicorn app.main:app --reload
@@ -89,31 +120,16 @@ uvicorn app.main:app --reload
 
 ---
 
-## API Endpoints
+# API Endpoints
 
-### Health Check
-
-```
-GET /health
-```
-
-Example Response
-
-```json
-{
-  "status": "ok"
-}
-```
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/health` | Health check endpoint |
+| POST | `/chat` | Conversational recommendation endpoint |
 
 ---
 
-### Chat
-
-```
-POST /chat
-```
-
-Example Request
+## Example Request
 
 ```json
 {
@@ -126,7 +142,9 @@ Example Request
 }
 ```
 
-Example Response
+---
+
+## Example Response
 
 ```json
 {
@@ -144,47 +162,59 @@ Example Response
 
 ---
 
-## Recommendation Pipeline
+# Recommendation Pipeline
 
 1. Parse conversation history
 2. Extract user intent
 3. Maintain conversation state
-4. Apply conversational rules
-5. Retrieve relevant assessments
+4. Apply business rules
+5. Retrieve relevant SHL assessments
 6. Rank recommendations
 7. Return structured JSON response
 
 ---
 
-## Supported Behaviors
+# Supported Behaviors
 
 - Multi-turn conversations
 - Clarification questions
-- Refinement requests
+- Recommendation refinement
 - Assessment comparison
 - Unsupported technology handling
-- Off-topic conversations
+- Off-topic request handling
 - Prompt injection resistance
 
 ---
 
-## Deployment
+# Design Decisions
 
-Hosted on Render.
-
-API
-
-https://shl-assessment-recommender-2wy2.onrender.com
-
-Swagger
-
-https://shl-assessment-recommender-2wy2.onrender.com/docs
+- Uses deterministic retrieval rather than an LLM to produce consistent recommendations.
+- Maintains conversational context through the complete message history supplied in each request.
+- Combines BM25 lexical search with RapidFuzz similarity scoring for hybrid retrieval.
+- Returns structured JSON responses aligned with the assignment schema.
 
 ---
 
-## Author
+# Known Limitations
 
-Ayush Agarwal
+- Recommendation quality depends on the available SHL catalog metadata.
+- Assessment comparison is based on catalog information rather than semantic reasoning.
+- The system currently uses deterministic retrieval and does not incorporate external LLMs.
 
-GitHub:
-https://github.com/Ayushagarwal-05
+---
+
+# Deployment
+
+Hosted on **Render**.
+
+| Service | URL |
+|----------|-----|
+| API | https://shl-assessment-recommender-2wy2.onrender.com |
+| Swagger UI | https://shl-assessment-recommender-2wy2.onrender.com/docs |
+
+---
+
+Built by **Ayush Agarwal**
+
+- GitHub: https://github.com/Ayushagarwal-05
+- LinkedIn: https://www.linkedin.com/in/ayush-agarwal-39303728b/
