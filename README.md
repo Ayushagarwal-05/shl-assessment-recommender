@@ -1,5 +1,7 @@
 # SHL Assessment Recommendation Agent
 
+> Conversational recommendation system built for the SHL AI Intern Take-Home Assignment.
+
 An intelligent conversational recommendation agent that helps users discover the most relevant SHL assessments based on hiring requirements, job roles, skills, seniority, and business context.
 
 ## Live Demo
