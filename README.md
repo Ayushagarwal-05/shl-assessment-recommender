@@ -1,91 +1,89 @@
-<div align="center">
-
 # SHL Assessment Recommendation Agent
 
-Conversational Retrieval System for SHL Assessments
-
-<br>
-
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-API-009688)
-![Render](https://img.shields.io/badge/Deployment-Render-46E3B7)
-
-</div>
+Conversational retrieval for the SHL Assessment Catalog.
 
 ---
 
-## Overview
+A FastAPI service that recommends SHL assessments through multi-turn conversations. The system maintains conversational context, clarifies ambiguous hiring requirements, retrieves relevant assessments from the SHL catalog, and returns structured recommendations.
 
-The SHL Assessment Recommendation Agent is a conversational recommendation system built for recruiters and hiring managers. It identifies suitable SHL assessments through dialogue instead of traditional keyword search.
+## Core Capabilities
 
----
+- Clarifies incomplete hiring requests
+- Recommends relevant SHL assessments
+- Supports recommendation refinement
+- Compares assessments
+- Rejects prompt injection and off-topic requests
+- Uses only the SHL catalog as its knowledge source
 
-## Highlights
+## Technical Approach
 
-- Multi-turn conversations
-- Clarification questions
-- Recommendation refinement
-- Assessment comparison
-- BM25 retrieval
-- RapidFuzz ranking
-- FastAPI backend
-
----
-
-## Architecture
+The recommendation pipeline follows a retrieval-first architecture.
 
 ```
-User
- │
- ▼
-FastAPI
- │
- ▼
-Conversation State
- │
- ▼
+Conversation
+      │
+      ▼
 Intent Extraction
- │
- ▼
-Rule Engine
- │
- ▼
-Retriever
- │
- ▼
-Recommendation
+      │
+      ▼
+Conversation State
+      │
+      ▼
+Business Rules
+      │
+      ▼
+Hybrid Retrieval
+(BM25 + RapidFuzz)
+      │
+      ▼
+Ranked Recommendations
 ```
 
----
+No external LLM is used for retrieval decisions. Recommendations are generated deterministically from the indexed SHL catalog.
 
 ## API
 
-| Method | Endpoint |
-|---------|----------|
-| GET | `/health` |
-| POST | `/chat` |
+### Health Check
 
----
+```
+GET /health
+```
 
-## Example
+### Recommendation
 
-```json
-{
-  "messages":[
-    {
-      "role":"user",
-      "content":"Hiring a Java Developer"
-    }
-  ]
-}
+```
+POST /chat
+```
+
+The API is fully stateless. Every request contains the complete conversation history.
+
+## Running
+
+```bash
+pip install -r requirements.txt
+
+uvicorn app.main:app --reload
+```
+
+## Deployment
+
+API
+
+https://shl-assessment-recommender-2wy2.onrender.com
+
+Documentation
+
+https://shl-assessment-recommender-2wy2.onrender.com/docs
+
+## Repository Structure
+
+```
+app/
+data/
+scripts/
+tests/
 ```
 
 ---
 
-## Deployment
-
-https://shl-assessment-recommender-2wy2.onrender.com
-
----
-
-Made by Ayush Agarwal
+Built by Ayush Agarwal
