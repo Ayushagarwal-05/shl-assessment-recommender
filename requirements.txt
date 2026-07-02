@@ -1,6 +1,5 @@
 fastapi
 uvicorn
+pydantic
 rank-bm25
 rapidfuzz
-pydantic
-python-dotenv
