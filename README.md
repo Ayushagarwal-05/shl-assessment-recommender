@@ -1,75 +1,91 @@
+<div align="center">
+
 # SHL Assessment Recommendation Agent
 
-> A conversational retrieval system that recommends relevant SHL assessments through natural language interaction.
+Conversational Retrieval System for SHL Assessments
 
----
+<br>
 
-### Built With
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-API-009688)
+![Render](https://img.shields.io/badge/Deployment-Render-46E3B7)
 
-FastAPI · Python · BM25 · RapidFuzz
+</div>
 
 ---
 
 ## Overview
 
-This project implements a conversational recommendation agent for the SHL Product Catalog.
-
-Instead of relying on keyword search alone, the system understands hiring intent through dialogue, asks clarification questions when required, retrieves relevant assessments, and returns structured recommendations through a stateless FastAPI API.
+The SHL Assessment Recommendation Agent is a conversational recommendation system built for recruiters and hiring managers. It identifies suitable SHL assessments through dialogue instead of traditional keyword search.
 
 ---
 
-## Features
+## Highlights
 
-- Conversational assessment recommendations
-- Clarification for vague hiring requests
+- Multi-turn conversations
+- Clarification questions
 - Recommendation refinement
 - Assessment comparison
-- Hybrid retrieval (BM25 + Fuzzy Matching)
-- Prompt injection resistance
-- Off-topic request handling
+- BM25 retrieval
+- RapidFuzz ranking
+- FastAPI backend
+
+---
+
+## Architecture
+
+```
+User
+ │
+ ▼
+FastAPI
+ │
+ ▼
+Conversation State
+ │
+ ▼
+Intent Extraction
+ │
+ ▼
+Rule Engine
+ │
+ ▼
+Retriever
+ │
+ ▼
+Recommendation
+```
 
 ---
 
 ## API
 
-| Endpoint | Description |
-|----------|-------------|
-| `GET /health` | Health Check |
-| `POST /chat` | Conversational Recommendation API |
+| Method | Endpoint |
+|---------|----------|
+| GET | `/health` |
+| POST | `/chat` |
 
 ---
 
-## Running Locally
+## Example
 
-```bash
-pip install -r requirements.txt
-
-uvicorn app.main:app --reload
+```json
+{
+  "messages":[
+    {
+      "role":"user",
+      "content":"Hiring a Java Developer"
+    }
+  ]
+}
 ```
 
 ---
 
 ## Deployment
 
-Live API
-
 https://shl-assessment-recommender-2wy2.onrender.com
 
-Swagger
-
-https://shl-assessment-recommender-2wy2.onrender.com/docs
-
 ---
 
-## Project Structure
-
-```text
-app/
-data/
-scripts/
-tests/
-```
-
----
-
-Developed by Ayush Agarwal
+Made by Ayush Agarwal
