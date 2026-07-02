@@ -1,47 +1,93 @@
 # SHL Assessment Recommendation Agent
 
-Conversational retrieval for the SHL Assessment Catalog.
+An intelligent conversational recommendation agent that helps users discover the most relevant SHL assessments based on hiring requirements, job roles, skills, seniority, and business context.
+
+## Live Demo
+
+**API:** https://shl-assessment-recommender-2wy2.onrender.com
+
+**Swagger Docs:** https://shl-assessment-recommender-2wy2.onrender.com/docs
 
 ---
 
-A FastAPI service that recommends SHL assessments through multi-turn conversations. The system maintains conversational context, clarifies ambiguous hiring requirements, retrieves relevant assessments from the SHL catalog, and returns structured recommendations.
+## Features
 
-## Core Capabilities
+- Conversational recommendation workflow
+- Context-aware multi-turn conversations
+- Automatic clarification when information is insufficient
+- SHL assessment retrieval using BM25 + Fuzzy Matching
+- Unsupported skill detection
+- Off-topic query handling
+- Prompt injection resistance
+- Assessment comparison support
+- REST API built with FastAPI
 
-- Clarifies incomplete hiring requests
-- Recommends relevant SHL assessments
-- Supports recommendation refinement
-- Compares assessments
-- Rejects prompt injection and off-topic requests
-- Uses only the SHL catalog as its knowledge source
+---
 
-## Technical Approach
+## Tech Stack
 
-The recommendation pipeline follows a retrieval-first architecture.
+- Python 3.11
+- FastAPI
+- BM25 (rank-bm25)
+- RapidFuzz
+- Pydantic
+
+---
+
+## Project Structure
 
 ```
-Conversation
-      │
-      ▼
-Intent Extraction
-      │
-      ▼
-Conversation State
-      │
-      ▼
-Business Rules
-      │
-      ▼
-Hybrid Retrieval
-(BM25 + RapidFuzz)
-      │
-      ▼
-Ranked Recommendations
+.
+├── app
+│   ├── agent.py
+│   ├── catalog.py
+│   ├── comparison.py
+│   ├── intent.py
+│   ├── main.py
+│   ├── models.py
+│   ├── retrieval.py
+│   ├── rules.py
+│   └── state.py
+│
+├── data
+│   ├── catalog.json
+│   └── conversations/
+│
+├── scripts
+│
+├── tests
+│
+├── requirements.txt
+└── README.md
 ```
 
-No external LLM is used for retrieval decisions. Recommendations are generated deterministically from the indexed SHL catalog.
+---
 
-## API
+## Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Ayushagarwal-05/shl-assessment-recommender.git
+
+cd shl-assessment-recommender
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the server
+
+```bash
+uvicorn app.main:app --reload
+```
+
+---
+
+## API Endpoints
 
 ### Health Check
 
@@ -49,41 +95,94 @@ No external LLM is used for retrieval decisions. Recommendations are generated d
 GET /health
 ```
 
-### Recommendation
+Example Response
+
+```json
+{
+  "status": "ok"
+}
+```
+
+---
+
+### Chat
 
 ```
 POST /chat
 ```
 
-The API is fully stateless. Every request contains the complete conversation history.
+Example Request
 
-## Running
-
-```bash
-pip install -r requirements.txt
-
-uvicorn app.main:app --reload
+```json
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "I need Java assessments for hiring developers."
+    }
+  ]
+}
 ```
 
+Example Response
+
+```json
+{
+  "reply": "Based on your requirements, I recommend the following SHL assessments.",
+  "recommendations": [
+    {
+      "name": "Java 8 (New)",
+      "url": "...",
+      "test_type": "Knowledge & Skills"
+    }
+  ],
+  "end_of_conversation": false
+}
+```
+
+---
+
+## Recommendation Pipeline
+
+1. Parse conversation history
+2. Extract user intent
+3. Maintain conversation state
+4. Apply conversational rules
+5. Retrieve relevant assessments
+6. Rank recommendations
+7. Return structured JSON response
+
+---
+
+## Supported Behaviors
+
+- Multi-turn conversations
+- Clarification questions
+- Refinement requests
+- Assessment comparison
+- Unsupported technology handling
+- Off-topic conversations
+- Prompt injection resistance
+
+---
+
 ## Deployment
+
+Hosted on Render.
 
 API
 
 https://shl-assessment-recommender-2wy2.onrender.com
 
-Documentation
+Swagger
 
 https://shl-assessment-recommender-2wy2.onrender.com/docs
 
-## Repository Structure
-
-```
-app/
-data/
-scripts/
-tests/
-```
-
 ---
 
-Built by Ayush Agarwal
+## Author
+
+Ayush Agarwal
+
+GitHub:
+https://github.com/Ayushagarwal-05
