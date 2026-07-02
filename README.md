@@ -1,113 +1,47 @@
-<div align="center">
+# SHL Assessment Recommendation Agent
 
-# 🎯 SHL Assessment Recommendation Agent
-
-### Conversational AI for Intelligent SHL Assessment Recommendations
-
-[![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)]()
-[![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-009688?logo=fastapi)]()
-[![BM25](https://img.shields.io/badge/Retrieval-BM25-orange)]()
-[![RapidFuzz](https://img.shields.io/badge/Fuzzy_Matching-RapidFuzz-success)]()
-[![Render](https://img.shields.io/badge/Deployment-Render-46E3B7)]()
-
-**Built for the SHL Generative AI Internship Assignment**
-
-🌐 **Live API:** https://shl-assessment-recommender-2wy2.onrender.com
-
-📖 **Swagger Documentation:** https://shl-assessment-recommender-2wy2.onrender.com/docs
-
-</div>
+> A conversational retrieval system that recommends relevant SHL assessments through natural language interaction.
 
 ---
 
-# ✨ Overview
+### Built With
 
-The SHL Assessment Recommendation Agent is a conversational recommendation system that helps recruiters identify the most suitable SHL assessments based on hiring requirements, job roles, experience level, skills, and business context.
-
-Instead of relying on keyword matching alone, the system maintains conversation state, asks clarification questions when needed, retrieves relevant assessments using BM25 + Fuzzy Matching, and returns structured recommendations through a FastAPI REST API.
+FastAPI · Python · BM25 · RapidFuzz
 
 ---
 
-# 🚀 Features
+## Overview
 
-✅ Multi-turn conversational recommendations
+This project implements a conversational recommendation agent for the SHL Product Catalog.
 
-✅ Intelligent clarification questions
-
-✅ BM25 + RapidFuzz retrieval pipeline
-
-✅ Conversation state tracking
-
-✅ Unsupported skill detection
-
-✅ Prompt injection resistance
-
-✅ Off-topic query handling
-
-✅ Assessment comparison
-
-✅ REST API with FastAPI
+Instead of relying on keyword search alone, the system understands hiring intent through dialogue, asks clarification questions when required, retrieves relevant assessments, and returns structured recommendations through a stateless FastAPI API.
 
 ---
 
-# 🏗️ Architecture
+## Features
 
-```text
-User
-   │
-   ▼
-FastAPI
-   │
-   ▼
-Conversation State
-   │
-   ▼
-Intent Extraction
-   │
-   ▼
-Rule Engine
-   │
-   ▼
-Retriever
-(BM25 + RapidFuzz)
-   │
-   ▼
-Assessment Ranking
-   │
-   ▼
-JSON Response
-```
+- Conversational assessment recommendations
+- Clarification for vague hiring requests
+- Recommendation refinement
+- Assessment comparison
+- Hybrid retrieval (BM25 + Fuzzy Matching)
+- Prompt injection resistance
+- Off-topic request handling
 
 ---
 
-# 📂 Project Structure
+## API
 
-```text
-app/
-│── agent.py
-│── catalog.py
-│── comparison.py
-│── intent.py
-│── main.py
-│── models.py
-│── retrieval.py
-│── rules.py
-│── state.py
-
-data/
-scripts/
-tests/
-```
+| Endpoint | Description |
+|----------|-------------|
+| `GET /health` | Health Check |
+| `POST /chat` | Conversational Recommendation API |
 
 ---
 
-# ⚙️ Installation
+## Running Locally
 
 ```bash
-git clone https://github.com/Ayushagarwal-05/shl-assessment-recommender
-
-cd shl-assessment-recommender
-
 pip install -r requirements.txt
 
 uvicorn app.main:app --reload
@@ -115,89 +49,27 @@ uvicorn app.main:app --reload
 
 ---
 
-# 📡 API Endpoints
+## Deployment
 
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | `/health` | Health Check |
-| POST | `/chat` | Conversational Recommendation API |
-
----
-
-# 💬 Example Request
-
-```json
-{
-  "messages": [
-    {
-      "role": "user",
-      "content": "I need Java assessments for hiring developers."
-    }
-  ]
-}
-```
-
----
-
-# 📤 Example Response
-
-```json
-{
-  "reply": "...",
-  "recommendations": [
-    {
-      "name": "Java 8 (New)",
-      "url": "...",
-      "test_type": "Knowledge & Skills"
-    }
-  ]
-}
-```
-
----
-
-# 🧠 Recommendation Pipeline
-
-```text
-Conversation
-      │
-      ▼
-Intent Extraction
-      │
-      ▼
-Conversation State
-      │
-      ▼
-Rule Engine
-      │
-      ▼
-Retriever
-      │
-      ▼
-Ranking
-      │
-      ▼
-Recommendations
-```
-
----
-
-# 🌍 Deployment
-
-**Live API**
+Live API
 
 https://shl-assessment-recommender-2wy2.onrender.com
 
-**Swagger**
+Swagger
 
 https://shl-assessment-recommender-2wy2.onrender.com/docs
 
 ---
 
-# 👨‍💻 Author
+## Project Structure
 
-**Ayush Agarwal**
+```text
+app/
+data/
+scripts/
+tests/
+```
 
-GitHub: https://github.com/Ayushagarwal-05
+---
 
-LinkedIn: *(add your LinkedIn URL here)*
+Developed by Ayush Agarwal
